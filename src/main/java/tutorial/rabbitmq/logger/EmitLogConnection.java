@@ -1,5 +1,6 @@
 package tutorial.rabbitmq.logger;
 
+import com.rabbitmq.client.MessageProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.Constants;
@@ -19,7 +20,7 @@ public class EmitLogConnection extends ALogConnection
 
     public void sendMessage(String message) throws IOException
     {
-        channel.basicPublish(Constants.EXCHANGE_NAME, routingKey, null, message.getBytes(StandardCharsets.UTF_8));
+        channel.basicPublish(Constants.EXCHANGE_NAME, routingKey, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes(StandardCharsets.UTF_8));
         logger.info(" [x] Sent '{}':'{}'", routingKey, message);
     }
 }

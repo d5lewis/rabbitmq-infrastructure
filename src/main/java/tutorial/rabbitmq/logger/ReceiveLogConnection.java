@@ -27,8 +27,6 @@ public class ReceiveLogConnection extends ALogConnection
         {
             logger.warn("Error getting queue", e);
         }
-
-        consumeMessages();
     }
 
     public void consumeMessages()
@@ -37,13 +35,13 @@ public class ReceiveLogConnection extends ALogConnection
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+
             logger.info(" [x] Received '{}':'{}'", delivery.getEnvelope().getRoutingKey(), message);
         };
 
         try
         {
-            channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
-            });
+            channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
         } catch (IOException e)
         {
             logger.warn("Error consuming message from queue", e);

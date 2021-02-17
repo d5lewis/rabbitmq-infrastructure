@@ -33,7 +33,7 @@ public class ALogConnection
         {
         Connection connection = factory.newConnection();
         channel = connection.createChannel();
-        channel.exchangeDeclare(Constants.EXCHANGE_NAME, Constants.EXCHANGE_TYPE);
+        channel.exchangeDeclare(Constants.EXCHANGE_NAME, Constants.TYPE);
         } catch (IOException | TimeoutException e)
         {
             logger.warn("Error setting up connection", e);
