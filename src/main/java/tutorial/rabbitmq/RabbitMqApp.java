@@ -1,29 +1,25 @@
 package tutorial.rabbitmq;
 
-import tutorial.rabbitmq.logger.EmitLogConnection;
-import tutorial.rabbitmq.logger.ReceiveLogConnection;
+import tutorial.rabbitmq.logger.MessageSender;
+import tutorial.rabbitmq.logger.MessageReceiver;
 import util.Constants;
 
 public class RabbitMqApp
 {
     private static final String KEY = "object";
 
-    public static void main(String[] argv) throws Exception
+    public static void main(String[] argv)
     {
         for (String arg : argv)
         {
             if (arg.contains(Constants.EMIT))
             {
-                EmitLogConnection logSender = new EmitLogConnection(KEY);
-                logSender.sendMessage("This is a test message");
-                logSender.closeChannel();
+                MessageSender.sendMessage(KEY, "This is a test message");
             }
 
             if (arg.contains(Constants.RECEIVE))
             {
-                ReceiveLogConnection logReceiver = new ReceiveLogConnection(KEY);
-                logReceiver.consumeMessages();
-                logReceiver.closeChannel();
+                MessageReceiver.consumeMessages(KEY);
             }
         }
     }
